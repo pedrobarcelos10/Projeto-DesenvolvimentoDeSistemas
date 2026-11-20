@@ -1,0 +1,8 @@
+# Configurações locais de IDE e ferramentas
+/.idea
+/.vscode
+/.claude
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
