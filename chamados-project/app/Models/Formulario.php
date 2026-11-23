@@ -54,6 +54,12 @@ class Formulario extends ModeloBase
         return $this->hasMany(Chamado::class);
     }
 
+    /** Por que o formulário não pode ser excluído (null = pode). */
+    public function motivoParaNaoExcluir(): ?string
+    {
+        return $this->chamados()->withTrashed()->exists() ? 'já existem chamados abertos por ele' : null;
+    }
+
     /** @param  Builder<self>  $query */
     #[Scope]
     protected function ativos(Builder $query): void

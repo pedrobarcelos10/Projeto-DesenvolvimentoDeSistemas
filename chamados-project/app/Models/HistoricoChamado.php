@@ -47,8 +47,12 @@ class HistoricoChamado extends ModeloBase
     {
         return match ($this->evento) {
             EventoChamado::Aberto => 'abriu o chamado',
-            EventoChamado::StatusAlterado => 'alterou o status de "'.$this->rotuloStatus($this->valor_anterior)
-                .'" para "'.$this->rotuloStatus($this->valor_novo).'"',
+            EventoChamado::StatusAlterado => match ([$this->valor_anterior, $this->valor_novo]) {
+                [StatusChamado::Solucionado->value, StatusChamado::Fechado->value] => 'aceitou a solução e fechou o chamado',
+                [StatusChamado::Solucionado->value, StatusChamado::EmAtendimento->value] => 'reabriu o atendimento (solução não aceita)',
+                default => 'alterou o status de "'.$this->rotuloStatus($this->valor_anterior)
+                    .'" para "'.$this->rotuloStatus($this->valor_novo).'"',
+            },
             EventoChamado::ResponsavelDefinido => 'definiu '.$this->valor_novo.' como responsável',
             EventoChamado::ResponsavelRemovido => 'removeu '.$this->valor_anterior.' da responsabilidade',
         };

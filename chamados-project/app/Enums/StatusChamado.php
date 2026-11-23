@@ -30,9 +30,21 @@ enum StatusChamado: string
             self::Aberto => 'sky',
             self::EmAtendimento => 'amber',
             self::Pendente => 'orange',
-            self::Solucionado => 'green',
-            self::Fechado => 'zinc',
+            self::Solucionado => 'emerald',
+            self::Fechado => 'indigo',
             self::Cancelado => 'red',
+        };
+    }
+
+    public function icone(): string
+    {
+        return match ($this) {
+            self::Aberto => 'inbox',
+            self::EmAtendimento => 'play-circle',
+            self::Pendente => 'pause-circle',
+            self::Solucionado => 'check-circle',
+            self::Fechado => 'lock-closed',
+            self::Cancelado => 'x-circle',
         };
     }
 
@@ -44,7 +56,7 @@ enum StatusChamado: string
             self::EmAtendimento => 'Colocar em atendimento',
             self::Pendente => 'Marcar como pendente',
             self::Solucionado => 'Solucionar',
-            self::Fechado => 'Fechar',
+            self::Fechado => 'Encerrar chamado',
             self::Cancelado => 'Cancelar',
         };
     }
@@ -69,10 +81,13 @@ enum StatusChamado: string
     public function transicoesPermitidas(): array
     {
         return match ($this) {
-            self::Aberto => [self::EmAtendimento, self::Pendente, self::Solucionado, self::Cancelado],
-            self::EmAtendimento => [self::Pendente, self::Solucionado, self::Cancelado],
-            self::Pendente => [self::EmAtendimento, self::Solucionado, self::Cancelado],
-            // Solucionado pode ser fechado (solução aceita) ou reaberto (solução recusada).
+            // A equipe pode encerrar diretamente um chamado em andamento (Fechado),
+            // sem passar pela aceitação do requerente.
+            self::Aberto => [self::EmAtendimento, self::Pendente, self::Solucionado, self::Fechado, self::Cancelado],
+            self::EmAtendimento => [self::Pendente, self::Solucionado, self::Fechado, self::Cancelado],
+            self::Pendente => [self::EmAtendimento, self::Solucionado, self::Fechado, self::Cancelado],
+            // Solucionado aguarda o requerente: fechado (solução aceita) ou de volta
+            // ao atendimento (solução recusada pelo requerente ou retomada pela equipe).
             self::Solucionado => [self::Fechado, self::EmAtendimento],
             self::Fechado, self::Cancelado => [],
         };

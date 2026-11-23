@@ -14,15 +14,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
-use Laravel\Fortify\Contracts\PasskeyUser;
-use Laravel\Fortify\PasskeyAuthenticatable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
 
 /**
  * Usuário do sistema.
  *
  * O model, a tabela `users` e as colunas name/email/password mantêm o padrão
- * do Laravel porque a autenticação (Fortify, passkeys, 2FA) depende deles.
+ * do Laravel porque a autenticação (Fortify) depende deles.
  * As colunas do domínio são em português.
  *
  * `perfil` e `ativo` ficam fora do $fillable de propósito: só o
@@ -36,20 +33,17 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property PerfilUsuario $perfil
  * @property int|null $secao_id
  * @property bool $ativo
- * @property string|null $two_factor_secret
- * @property string|null $two_factor_recovery_codes
- * @property Carbon|null $two_factor_confirmed_at
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Secao|null $secao
  */
 #[Fillable(['name', 'email', 'password', 'secao_id'])]
-#[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
-class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
+#[Hidden(['password', 'remember_token'])]
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
+    use HasFactory, Notifiable;
 
     /** @var array<string, mixed> */
     protected $attributes = [

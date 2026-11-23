@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\DB;
  * Altera o status respeitando o fluxo definido em StatusChamado::transicoesPermitidas().
  * Mantém solucionado_em/fechado_em coerentes e registra o histórico.
  * Se um comentário for informado (ex.: a solução aplicada), ele vira um acompanhamento.
+ *
+ * Aceitar a solução (Solucionado → Fechado) é exclusivo de quem abriu o chamado,
+ * mesmo que o autor seja atendente ou administrador. Chamados ainda em andamento
+ * podem ser encerrados diretamente pela equipe (Aberto/Em atendimento/Pendente → Fechado).
  */
 class AlterarStatusChamado
 {
@@ -22,6 +26,10 @@ class AlterarStatusChamado
 
         if (! $anterior->podeMudarPara($novo)) {
             throw ChamadoException::transicaoInvalida($anterior, $novo);
+        }
+
+        if ($anterior === StatusChamado::Solucionado && $novo === StatusChamado::Fechado && $chamado->requerente_id !== $autor->id) {
+            throw ChamadoException::somenteRequerenteAceita();
         }
 
         $chamado->status = $novo;

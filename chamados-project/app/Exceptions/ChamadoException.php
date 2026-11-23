@@ -30,6 +30,11 @@ class ChamadoException extends DomainException
         return new self("{$usuario->name} não é atendente da área deste chamado.");
     }
 
+    public static function somenteRequerenteAceita(): self
+    {
+        return new self('Somente quem abriu o chamado pode aceitar a solução.');
+    }
+
     public static function chamadoFinalizado(StatusChamado $status): self
     {
         return new self("Chamados com status \"{$status->rotulo()}\" não podem ser alterados.");

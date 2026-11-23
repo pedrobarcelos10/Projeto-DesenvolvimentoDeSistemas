@@ -58,11 +58,45 @@ class ChamadoPolicy
             && ($this->ehRequerente($usuario, $chamado) || $usuario->podeAtender($chamado));
     }
 
-    /** O requerente aceita (fecha) ou recusa (reabre) a solução. */
+    /** Só quem abriu o chamado aceita (fecha) ou recusa (reabre) a solução. */
     public function avaliarSolucao(User $usuario, Chamado $chamado): bool
     {
-        return $chamado->status === StatusChamado::Solucionado
-            && ($this->ehRequerente($usuario, $chamado) || $usuario->podeAtender($chamado));
+        return $chamado->status === StatusChamado::Solucionado && $this->ehRequerente($usuario, $chamado);
+    }
+
+    /**
+     * Pode levar o chamado para o status informado?
+     * Uso: $usuario->can('alterarStatus', [$chamado, StatusChamado::Fechado]).
+     *
+     * - Solucionado → Fechado (aceitar a solução): só o requerente, mesmo que a equipe também possa atender;
+     * - Solucionado → Em atendimento: o requerente (recusa) ou a equipe (retoma o atendimento);
+     * - Em andamento → Cancelado: o requerente ou a equipe;
+     * - Em andamento → qualquer outro (inclusive encerrar direto em Fechado): só a equipe.
+     */
+    public function alterarStatus(User $usuario, Chamado $chamado, StatusChamado $novo): bool
+    {
+        $atual = $chamado->status;
+
+        if (! $atual->podeMudarPara($novo)) {
+            return false;
+        }
+
+        $requerente = $this->ehRequerente($usuario, $chamado);
+        $equipe = $usuario->podeAtender($chamado);
+
+        if ($atual === StatusChamado::Solucionado) {
+            return match ($novo) {
+                StatusChamado::Fechado => $requerente,
+                StatusChamado::EmAtendimento => $requerente || $equipe,
+                default => false,
+            };
+        }
+
+        if ($novo === StatusChamado::Cancelado) {
+            return $requerente || $equipe;
+        }
+
+        return $equipe;
     }
 
     public function excluir(User $usuario, Chamado $chamado): bool

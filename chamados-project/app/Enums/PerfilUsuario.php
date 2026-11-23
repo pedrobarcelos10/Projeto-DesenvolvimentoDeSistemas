@@ -28,9 +28,27 @@ enum PerfilUsuario: string
     public function cor(): string
     {
         return match ($this) {
-            self::Administrador => 'red',
-            self::Atendente => 'blue',
-            self::Requerente => 'zinc',
+            self::Administrador => 'violet',
+            self::Atendente => 'sky',
+            self::Requerente => 'teal',
+        };
+    }
+
+    public function icone(): string
+    {
+        return match ($this) {
+            self::Administrador => 'shield-check',
+            self::Atendente => 'lifebuoy',
+            self::Requerente => 'user',
+        };
+    }
+
+    public function descricao(): string
+    {
+        return match ($this) {
+            self::Administrador => 'Controla todo o sistema: usuários, estrutura, catálogo e formulários.',
+            self::Atendente => 'Atende os chamados da área em que está lotado, além de abrir os próprios.',
+            self::Requerente => 'Abre e acompanha os próprios chamados.',
         };
     }
 }

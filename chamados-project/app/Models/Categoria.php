@@ -60,6 +60,23 @@ class Categoria extends ModeloBase
         return $this->hasMany(Formulario::class);
     }
 
+    /** @return HasMany<Chamado, $this> */
+    public function chamados(): HasMany
+    {
+        return $this->hasMany(Chamado::class);
+    }
+
+    /** Por que a categoria não pode ser excluída (null = pode). */
+    public function motivoParaNaoExcluir(): ?string
+    {
+        return match (true) {
+            $this->subcategorias()->exists() => 'ela possui subcategorias',
+            $this->formularios()->exists() => 'ela possui formulários',
+            $this->chamados()->withTrashed()->exists() => 'ela possui chamados',
+            default => null,
+        };
+    }
+
     /** Nome completo com a hierarquia: "Hardware > Impressora". */
     public function nomeCompleto(): string
     {

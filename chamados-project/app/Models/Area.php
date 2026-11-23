@@ -54,6 +54,17 @@ class Area extends ModeloBase
         return $this->hasMany(Chamado::class);
     }
 
+    /** Por que a área não pode ser excluída (null = pode). Áreas em uso devem ser desativadas. */
+    public function motivoParaNaoExcluir(): ?string
+    {
+        return match (true) {
+            $this->secoes()->exists() => 'ela possui seções',
+            $this->categorias()->exists() => 'ela possui categorias no catálogo',
+            $this->chamados()->withTrashed()->exists() => 'ela possui chamados',
+            default => null,
+        };
+    }
+
     /** @param  Builder<self>  $query */
     #[Scope]
     protected function ativas(Builder $query): void

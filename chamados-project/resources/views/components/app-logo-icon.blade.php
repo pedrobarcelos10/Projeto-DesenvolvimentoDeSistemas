@@ -1,8 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 42" {{ $attributes }}>
-    <path 
-        fill="currentColor" 
-        fill-rule="evenodd" 
-        clip-rule="evenodd"
-        d="M17.2 5.633 8.6.855 0 5.633v26.51l16.2 9 16.2-9v-8.442l7.6-4.223V9.856l-8.6-4.777-8.6 4.777V18.3l-5.6 3.111V5.633ZM38 18.301l-5.6 3.11v-6.157l5.6-3.11V18.3Zm-1.06-7.856-5.54 3.078-5.54-3.079 5.54-3.078 5.54 3.079ZM24.8 18.3v-6.157l5.6 3.111v6.158L24.8 18.3Zm-1 1.732 5.54 3.078-13.14 7.302-5.54-3.078 13.14-7.3v-.002Zm-16.2 7.89 7.6 4.222V38.3L2 30.966V7.92l5.6 3.111v16.892ZM8.6 9.3 3.06 6.222 8.6 3.143l5.54 3.08L8.6 9.3Zm21.8 15.51-13.2 7.334V38.3l13.2-7.334v-6.156ZM9.6 11.034l5.6-3.11v14.6l-5.6 3.11v-14.6Z"
-    />
+{{--
+    Marca do Prisma: um prisma que recebe um único feixe (o chamado) e o
+    decompõe em cores (as áreas que atendem). Fundo em gradiente índigo → violeta.
+--}}
+@php $id = 'prisma-'.\Illuminate\Support\Str::random(6); @endphp
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Prisma" {{ $attributes }}>
+    <defs>
+        <linearGradient id="{{ $id }}-fundo" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#6366F1" />
+            <stop offset="1" stop-color="#7C3AED" />
+        </linearGradient>
+    </defs>
+    <rect width="48" height="48" rx="12" fill="url(#{{ $id }}-fundo)" />
+    <path d="M5 26.5 18 21.5" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" />
+    <path d="M30 21.5 43 15.5" stroke="#7DD3FC" stroke-width="2.6" stroke-linecap="round" />
+    <path d="M31.2 23.8 43 24" stroke="#6EE7B7" stroke-width="2.6" stroke-linecap="round" />
+    <path d="M32.4 26.1 43 32.5" stroke="#FCD34D" stroke-width="2.6" stroke-linecap="round" />
+    <path d="M24 9.5 36.5 33.5H11.5Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round" />
+    <path d="M18 21.5 30 21.5 32.4 26.1Z" fill="#6366F1" fill-opacity=".28" />
 </svg>

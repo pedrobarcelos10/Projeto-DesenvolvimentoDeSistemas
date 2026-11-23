@@ -10,10 +10,7 @@
 ])
 
 @if ($chamados->isEmpty())
-    <div class="rounded-lg border border-dashed border-zinc-300 p-8 text-center dark:border-zinc-700">
-        <flux:icon.inbox class="mx-auto mb-2 size-8 text-zinc-400" />
-        <flux:text>{{ $vazio }}</flux:text>
-    </div>
+    <x-vazio icone="inbox" :texto="$vazio" />
 @else
     <flux:table :paginate="$chamados instanceof \Illuminate\Contracts\Pagination\Paginator ? $chamados : null">
         <flux:table.columns>
@@ -31,9 +28,9 @@
         <flux:table.rows>
             @foreach ($chamados as $chamado)
                 <flux:table.row :key="$chamado->id">
-                    <flux:table.cell class="font-mono text-xs text-zinc-500">{{ $chamado->numero() }}</flux:table.cell>
+                    <flux:table.cell class="font-mono text-xs font-medium text-indigo-600 dark:text-indigo-300">{{ $chamado->numero() }}</flux:table.cell>
                     <flux:table.cell class="max-w-sm">
-                        <flux:link :href="route('chamados.exibir', $chamado)" wire:navigate variant="ghost" class="block truncate font-medium">
+                        <flux:link :href="route('chamados.exibir', $chamado)" wire:navigate variant="ghost" class="block truncate font-medium hover:text-indigo-600! dark:hover:text-indigo-300!">
                             {{ $chamado->titulo }}
                         </flux:link>
                         @if ($chamado->categoria)

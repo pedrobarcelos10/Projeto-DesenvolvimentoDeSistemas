@@ -44,4 +44,21 @@ class Secao extends ModeloBase
     {
         return $this->hasMany(Chamado::class);
     }
+
+    /** @return HasMany<Categoria, $this> */
+    public function categorias(): HasMany
+    {
+        return $this->hasMany(Categoria::class);
+    }
+
+    /** Por que a seção não pode ser excluída (null = pode). */
+    public function motivoParaNaoExcluir(): ?string
+    {
+        return match (true) {
+            $this->usuarios()->exists() => 'há usuários lotados nela',
+            $this->categorias()->exists() => 'ela é a seção padrão de categorias',
+            $this->chamados()->withTrashed()->exists() => 'ela possui chamados',
+            default => null,
+        };
+    }
 }

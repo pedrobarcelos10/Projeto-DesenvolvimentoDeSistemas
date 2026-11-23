@@ -33,7 +33,7 @@ return new class extends Migration
         });
 
         // A tabela `users` e as colunas name/email/password seguem o padrão do
-        // Laravel (autenticação, Fortify e passkeys dependem delas).
+        // Laravel (a autenticação do Fortify depende delas).
         Schema::table('users', function (Blueprint $table) {
             $table->string('perfil', 20)->default('requerente')->index()->after('password');
             // Lotação do usuário. Para atendentes, define a área cujos chamados ele atende.
