@@ -6,13 +6,18 @@
     <body class="min-h-screen bg-zinc-50 antialiased dark:bg-zinc-900">
         <div class="grid min-h-svh lg:grid-cols-2">
             {{-- Painel da marca (desktop) --}}
-            <div class="hidden border-e border-zinc-200 bg-white p-12 lg:flex lg:flex-col dark:border-zinc-800 dark:bg-zinc-950">
+            <div class="hidden overflow-hidden border-e border-zinc-200 bg-white p-12 lg:flex lg:flex-col dark:border-zinc-800 dark:bg-zinc-950">
                 <a href="{{ route('home') }}" class="flex items-center gap-3 text-xl font-semibold text-zinc-900 dark:text-white" wire:navigate>
                     <x-app-logo-icon class="size-10" />
                     {{ config('app.name', 'Prisma') }}
                 </a>
 
-                <div class="mt-auto max-w-md">
+                {{-- O feixe (o chamado) entra no prisma e se decompõe nas cores das áreas --}}
+                <div class="-mx-12 flex min-h-0 flex-1 items-center justify-center py-6">
+                    <x-animacao-prisma class="h-full max-h-[min(26rem,42vh)] w-full" />
+                </div>
+
+                <div class="max-w-md">
                     <h2 class="text-3xl font-semibold leading-tight text-zinc-900 dark:text-white">Cada solicitação no caminho certo.</h2>
                     <p class="mt-3 text-zinc-600 dark:text-zinc-400">
                         Abra chamados, acompanhe o andamento e fale com a equipe responsável em um só lugar.

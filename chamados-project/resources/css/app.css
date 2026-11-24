@@ -60,3 +60,119 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
+
+/*
+ * Animação do prisma (tela de login) — <x-animacao-prisma />
+ * 1. o feixe de entrada e as cores são "desenhados" em sequência;
+ * 2. depois, pulsos de luz percorrem os feixes em loop, o prisma flutua
+ *    e partículas sobem devagar.
+ * Com "reduzir movimento" ativo no sistema, fica só a imagem final, parada.
+ */
+.animacao-prisma__desenho {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: prisma-desenhar 0.7s ease-out var(--atraso, 0s) both;
+}
+
+.animacao-prisma__pulso {
+    stroke-dasharray: 6 94;
+    stroke-dashoffset: 6;
+    opacity: 0;
+    animation: prisma-pulso 2.4s linear var(--atraso, 0s) infinite;
+}
+
+.animacao-prisma__pulso--saida {
+    animation-delay: calc(var(--atraso, 0s) + 1.95s + var(--fase, 0s));
+}
+
+.animacao-prisma__aura {
+    opacity: 0;
+    animation:
+        prisma-aura-aparecer 0.8s ease-out var(--atraso, 0s) both,
+        prisma-aura-respirar 4s ease-in-out calc(var(--atraso, 0s) + 0.8s + var(--fase, 0s)) infinite;
+}
+
+.animacao-prisma__corpo,
+.animacao-prisma__halo,
+.animacao-prisma__particula {
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.animacao-prisma__corpo {
+    animation: prisma-flutuar 6s ease-in-out infinite;
+}
+
+.animacao-prisma__contorno {
+    stroke-dasharray: 0.1 0.9;
+    stroke-opacity: 0.6;
+    animation: prisma-contorno 7s linear infinite;
+}
+
+.animacao-prisma__halo {
+    animation: prisma-halo 6s ease-in-out infinite;
+}
+
+.animacao-prisma__particula {
+    opacity: 0;
+    animation: prisma-particula 5s ease-in-out var(--atraso, 0s) infinite;
+}
+
+@keyframes prisma-desenhar {
+    to { stroke-dashoffset: 0; }
+}
+
+@keyframes prisma-pulso {
+    0% { stroke-dashoffset: 6; opacity: 0; }
+    10%, 85% { opacity: 0.9; }
+    100% { stroke-dashoffset: -100; opacity: 0; }
+}
+
+@keyframes prisma-aura-aparecer {
+    to { opacity: 0.3; }
+}
+
+@keyframes prisma-aura-respirar {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.55; }
+}
+
+@keyframes prisma-flutuar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+@keyframes prisma-contorno {
+    to { stroke-dashoffset: -1; }
+}
+
+@keyframes prisma-halo {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.06); }
+}
+
+@keyframes prisma-particula {
+    0% { opacity: 0; transform: translateY(6px); }
+    50% { opacity: 0.85; }
+    100% { opacity: 0; transform: translateY(-16px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animacao-prisma * {
+        animation: none !important;
+    }
+
+    .animacao-prisma__desenho {
+        stroke-dashoffset: 0;
+    }
+
+    .animacao-prisma__aura {
+        opacity: 0.35;
+    }
+
+    .animacao-prisma__pulso,
+    .animacao-prisma__contorno,
+    .animacao-prisma__particula {
+        display: none;
+    }
+}
