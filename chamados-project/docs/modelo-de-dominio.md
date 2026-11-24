@@ -135,7 +135,7 @@ Componentes Blade: `<x-chamado.status>`, `<x-chamado.prioridade>`, `<x-chamado.t
 
 Marca: um prisma que recebe um feixe (o chamado) e o decompõe em cores (as áreas que atendem). Ícone em
 `resources/views/components/app-logo-icon.blade.php`, `public/favicon.svg`, `public/favicon.ico` e
-`public/apple-touch-icon.png`. Cor de ação: índigo (`--color-accent` em `resources/css/app.css`);
+`public/apple-touch-icon.png`. Cor de ação: azul (`--color-accent` em `resources/css/app.css`), reservada à ação principal de cada tela;
 status, prioridades e perfis usam cores semânticas nos badges.
 
 ## Usuários de desenvolvimento (`php artisan migrate:fresh --seed`)

@@ -1,0 +1,75 @@
+# Execução da suíte de testes — 24/11/2026 — commit 62c5a36
+# Comando: vendor/bin/phpunit --testdox   (equivalente: php artisan test)
+
+PHPUnit 12.5.45 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.6.0
+Configuration: C:\Users\pedro\Desktop\Desenvolvimento de Sistemas\Projeto-DesenvolvimentoDeSistemas\chamados-project\phpunit.xml
+
+Time: 00:02.626, Memory: 74.00 MB
+
+Aceite Solucao (Tests\Feature\Chamados\AceiteSolucao)
+ ✔ Somente o requerente pode aceitar a solucao
+ ✔ A action recusa aceite feito por quem nao abriu o chamado
+ ✔ Atendente que abriu o proprio chamado pode aceitar a solucao
+ ✔ Requerente aceita a solucao pela tela do chamado
+ ✔ Atendente ve o chamado aguardando o requerente e so pode retomar
+ ✔ Atendente pode encerrar diretamente um chamado em andamento
+ ✔ Administrador pode encerrar diretamente
+
+Authentication (Tests\Feature\Auth\Authentication)
+ ✔ Login screen can be rendered
+ ✔ Users can authenticate using the login screen
+ ✔ Users can not authenticate with invalid password
+ ✔ Users can logout
+
+Catalogo (Tests\Feature\Admin\Catalogo)
+ ✔ Administrador cria area e secao
+ ✔ Area em uso nao e excluida
+ ✔ Administrador cria subcategoria
+ ✔ Subcategoria nao pode ser pai
+ ✔ Formulario e salvo com campos em ordem
+ ✔ Campo removido some e chave dos mantidos nao muda
+ ✔ Formulario com chamados nao e excluido
+
+Email Verification (Tests\Feature\Auth\EmailVerification)
+ ✔ Email verification screen can be rendered
+ ✔ Unverified users are redirected to the email verification prompt
+ ✔ Email can be verified
+ ✔ Email is not verified with invalid hash
+ ✔ Already verified user visiting verification link is redirected without firing event again
+
+Gerenciar Usuarios (Tests\Feature\Admin\GerenciarUsuarios)
+ ✔ Nao existe cadastro publico
+ ✔ Somente administrador acessa a area administrativa
+ ✔ Administrador cria usuario
+ ✔ Atendente precisa de lotacao
+ ✔ Administrador altera perfil e area de um usuario
+ ✔ Administrador desativa e reativa usuario
+ ✔ Administrador nao pode se desativar
+ ✔ Ultimo administrador ativo nao e rebaixado
+ ✔ Usuario desativado nao consegue entrar
+ ✔ Usuario desativado durante a sessao e desconectado
+
+Password Confirmation (Tests\Feature\Auth\PasswordConfirmation)
+ ✔ Confirm password screen can be rendered
+
+Password Reset (Tests\Feature\Auth\PasswordReset)
+ ✔ Reset password link screen can be rendered
+ ✔ Reset password link can be requested
+ ✔ Reset password screen can be rendered
+ ✔ Password can be reset with valid token
+
+Profile Update (Tests\Feature\Settings\ProfileUpdate)
+ ✔ Profile page is displayed
+ ✔ Profile information can be updated
+ ✔ Email is stored in lowercase so the user can still log in
+ ✔ Email must be unique regardless of case
+ ✔ Email verification status is unchanged when email address is unchanged
+
+Security (Tests\Feature\Settings\Security)
+ ✔ Security settings page can be rendered
+ ✔ Password can be updated
+ ✔ Correct password must be provided to update password
+
+OK (46 tests, 150 assertions)
