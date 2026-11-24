@@ -4,32 +4,48 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-zinc-50 dark:bg-zinc-800">
-        <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-white dark:border-zinc-700 dark:bg-zinc-900">
+        {{--
+            Sidebar colapsável: no desktop o botão do cabeçalho recolhe a barra para
+            só os ícones (cada item mostra o nome numa dica ao passar o mouse); no
+            celular ela vira uma gaveta. O Flux lembra a escolha entre as páginas.
+        --}}
+        <flux:sidebar sticky collapsible class="border-e border-zinc-200 bg-white dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.header>
                 <x-app-logo :sidebar="true" href="{{ route('painel') }}" wire:navigate />
-                <flux:sidebar.collapse class="lg:hidden" />
+                <flux:sidebar.collapse
+                    tooltip="Recolher ou expandir menu"
+                    class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-me-2"
+                />
             </flux:sidebar.header>
 
+            {{-- Os itens ficam soltos (sem grupo com título) para continuarem visíveis com a barra recolhida. --}}
             <flux:sidebar.nav>
-                <flux:sidebar.group heading="Chamados" class="grid">
-                    <flux:sidebar.item icon="home" :href="route('painel')" :current="request()->routeIs('painel')" wire:navigate>
-                        Painel
+                <div class="px-3 pb-1 text-sm font-medium text-zinc-400 in-data-flux-sidebar-collapsed-desktop:hidden">Chamados</div>
+
+                <flux:sidebar.item icon="home" :href="route('painel')" :current="request()->routeIs('painel')" wire:navigate>
+                    Painel
+                </flux:sidebar.item>
+                <flux:sidebar.item icon="plus-circle" :href="route('chamados.novo')" :current="request()->routeIs('chamados.novo')" wire:navigate>
+                    Abrir chamado
+                </flux:sidebar.item>
+                <flux:sidebar.item icon="inbox-stack" :href="route('chamados.index')" :current="request()->routeIs('chamados.index', 'chamados.exibir') && request('escopo') !== 'fila'" wire:navigate>
+                    Chamados
+                </flux:sidebar.item>
+                @if (auth()->user()->fazAtendimento())
+                    <flux:sidebar.item icon="queue-list" :href="route('chamados.index', ['escopo' => 'fila'])" :current="request()->routeIs('chamados.index') && request('escopo') === 'fila'" wire:navigate>
+                        Fila de atendimento
                     </flux:sidebar.item>
-                    <flux:sidebar.item icon="plus-circle" :href="route('chamados.novo')" :current="request()->routeIs('chamados.novo')" wire:navigate>
-                        Abrir chamado
-                    </flux:sidebar.item>
-                    <flux:sidebar.item icon="inbox-stack" :href="route('chamados.index')" :current="request()->routeIs('chamados.index', 'chamados.exibir') && request('escopo') !== 'fila'" wire:navigate>
-                        Chamados
-                    </flux:sidebar.item>
-                    @if (auth()->user()->fazAtendimento())
-                        <flux:sidebar.item icon="queue-list" :href="route('chamados.index', ['escopo' => 'fila'])" :current="request()->routeIs('chamados.index') && request('escopo') === 'fila'" wire:navigate>
-                            Fila de atendimento
-                        </flux:sidebar.item>
-                    @endif
-                </flux:sidebar.group>
+                @endif
 
                 @can('administrar')
-                    <flux:sidebar.group heading="Administração" class="grid">
+                    {{-- Grupo expansível com ícone: com a barra recolhida vira um submenu flutuante. --}}
+                    <flux:sidebar.group
+                        expandable
+                        :expanded="request()->routeIs('admin.*')"
+                        icon="cog-6-tooth"
+                        heading="Administração"
+                        class="mt-4 grid in-data-flux-sidebar-collapsed-desktop:mt-0"
+                    >
                         <flux:sidebar.item icon="users" :href="route('admin.usuarios.index')" :current="request()->routeIs('admin.usuarios.*')" wire:navigate>
                             Usuários
                         </flux:sidebar.item>
@@ -48,7 +64,9 @@
 
             <flux:spacer />
 
-            <div class="mx-1 flex flex-col gap-1.5 rounded-lg border border-zinc-200 px-3 py-2.5 dark:border-zinc-700">
+            <x-seletor-aparencia />
+
+            <div class="mx-1 flex flex-col gap-1.5 rounded-lg border border-zinc-200 px-3 py-2.5 in-data-flux-sidebar-collapsed-desktop:hidden dark:border-zinc-700">
                 <flux:badge size="sm" :color="auth()->user()->perfil->cor()" :icon="auth()->user()->perfil->icone()" class="self-start">
                     {{ auth()->user()->perfil->rotulo() }}
                 </flux:badge>
