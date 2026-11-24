@@ -143,6 +143,17 @@
             </flux:toast.group>
         @endpersist
 
+        {{-- Liga as transições da sidebar só depois da página pronta (ver resources/css/app.css). --}}
+        <script data-navigate-once>
+            (() => {
+                const raiz = document.documentElement;
+                const ligar = () => requestAnimationFrame(() => requestAnimationFrame(() => raiz.setAttribute('data-animar-sidebar', '')));
+                document.addEventListener('livewire:navigating', () => raiz.removeAttribute('data-animar-sidebar'));
+                document.addEventListener('livewire:navigated', ligar);
+                window.addEventListener('load', ligar);
+            })();
+        </script>
+
         @fluxScripts
     </body>
 </html>

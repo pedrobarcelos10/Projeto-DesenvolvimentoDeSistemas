@@ -176,3 +176,45 @@ select:focus[data-flux-control] {
         display: none;
     }
 }
+
+/*
+ * Sidebar: recolher/expandir e grupo "Administração" com transição suave.
+ * O Flux (versão gratuita) só anima a gaveta do celular; no desktop a largura e o
+ * grupo mudam de uma vez. O atributo data-animar-sidebar é ligado depois que a página
+ * carrega (layouts/app/sidebar.blade.php), para nada animar na abertura ou ao navegar.
+ */
+ui-sidebar[data-flux-sidebar] {
+    overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    [data-animar-sidebar] ui-sidebar[data-flux-sidebar] {
+        transition:
+            width 240ms cubic-bezier(0.2, 0, 0, 1),
+            padding 240ms cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    ui-disclosure[data-flux-sidebar-group] > div:last-child {
+        interpolate-size: allow-keywords;
+        overflow: hidden;
+    }
+
+    [data-animar-sidebar] ui-disclosure[data-flux-sidebar-group] > div:last-child {
+        transition:
+            height 220ms cubic-bezier(0.2, 0, 0, 1),
+            opacity 180ms ease,
+            display 220ms allow-discrete;
+    }
+
+    ui-disclosure[data-flux-sidebar-group] > div:last-child:not([data-open]) {
+        height: 0;
+        opacity: 0;
+    }
+
+    @starting-style {
+        [data-animar-sidebar] ui-disclosure[data-flux-sidebar-group] > div[data-open]:last-child {
+            height: 0;
+            opacity: 0;
+        }
+    }
+}
