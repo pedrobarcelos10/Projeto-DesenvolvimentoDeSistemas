@@ -120,14 +120,16 @@ class Exibir extends Component
     {
         $avaliando = $this->chamado->status === StatusChamado::Solucionado;
 
+        // Uma única ação em destaque (cor de acento): solucionar ou aceitar a solução.
+        // As demais ficam neutras, e o cancelamento discreto, em vermelho só no texto.
         return match (true) {
-            $avaliando && $status === StatusChamado::Fechado => ['variante' => 'primary', 'cor' => 'emerald', 'icone' => 'hand-thumb-up'],
-            $avaliando && $this->ehRequerente() => ['variante' => 'outline', 'cor' => 'amber', 'icone' => 'hand-thumb-down'],
-            $status === StatusChamado::Solucionado => ['variante' => 'primary', 'cor' => 'emerald', 'icone' => 'check-circle'],
-            $status === StatusChamado::EmAtendimento => ['variante' => 'filled', 'cor' => 'sky', 'icone' => 'play'],
-            $status === StatusChamado::Pendente => ['variante' => 'filled', 'cor' => 'orange', 'icone' => 'pause'],
-            $status === StatusChamado::Fechado => ['variante' => 'filled', 'cor' => 'indigo', 'icone' => 'lock-closed'],
-            default => ['variante' => 'danger', 'cor' => null, 'icone' => 'x-circle'],
+            $avaliando && $status === StatusChamado::Fechado => ['variante' => 'primary', 'cor' => null, 'icone' => 'hand-thumb-up'],
+            $avaliando && $this->ehRequerente() => ['variante' => 'outline', 'cor' => null, 'icone' => 'hand-thumb-down'],
+            $status === StatusChamado::Solucionado => ['variante' => 'primary', 'cor' => null, 'icone' => 'check-circle'],
+            $status === StatusChamado::EmAtendimento => ['variante' => 'outline', 'cor' => null, 'icone' => 'play'],
+            $status === StatusChamado::Pendente => ['variante' => 'outline', 'cor' => null, 'icone' => 'pause'],
+            $status === StatusChamado::Fechado => ['variante' => 'outline', 'cor' => null, 'icone' => 'lock-closed'],
+            default => ['variante' => 'ghost', 'cor' => 'red', 'icone' => 'x-circle'],
         };
     }
 

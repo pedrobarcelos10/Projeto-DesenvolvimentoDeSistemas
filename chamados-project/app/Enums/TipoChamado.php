@@ -18,6 +18,15 @@ enum TipoChamado: string
         };
     }
 
+    /** Cor usada nos badges do Flux. */
+    public function cor(): string
+    {
+        return match ($this) {
+            self::Incidente => 'rose',
+            self::Requisicao => 'sky',
+        };
+    }
+
     public function descricao(): string
     {
         return match ($this) {

@@ -41,7 +41,7 @@ class Painel extends Component
                 'rotulo' => 'Meus chamados em andamento',
                 'valor' => $meus()->emAndamento()->count(),
                 'icone' => 'inbox',
-                'cor' => 'indigo',
+                'cor' => 'blue',
                 'link' => route('chamados.index', ['escopo' => 'meus']),
             ],
             [
@@ -58,7 +58,7 @@ class Painel extends Component
                 'rotulo' => 'Atribuídos a mim',
                 'valor' => Chamado::query()->where('responsavel_id', $usuario->id)->emAndamento()->count(),
                 'icone' => 'user',
-                'cor' => 'violet',
+                'cor' => 'sky',
                 'link' => route('chamados.index', ['escopo' => 'atribuidos']),
             ];
             $indicadores[] = [

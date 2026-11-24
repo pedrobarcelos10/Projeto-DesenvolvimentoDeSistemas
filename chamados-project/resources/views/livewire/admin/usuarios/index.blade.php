@@ -6,10 +6,10 @@
     </x-admin.cabecalho>
 
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <x-indicador rotulo="Usuários cadastrados" :valor="$this->resumo['total']" icone="users" cor="indigo" />
+        <x-indicador rotulo="Usuários cadastrados" :valor="$this->resumo['total']" icone="users" />
         <x-indicador rotulo="Ativos" :valor="$this->resumo['ativos']" icone="check-circle" cor="emerald" />
         <x-indicador rotulo="Atendentes ativos" :valor="$this->resumo['atendentes']" icone="lifebuoy" cor="sky" />
-        <x-indicador rotulo="Administradores ativos" :valor="$this->resumo['administradores']" icone="shield-check" cor="violet" />
+        <x-indicador rotulo="Administradores ativos" :valor="$this->resumo['administradores']" icone="shield-check" cor="amber" />
     </div>
 
     <div class="grid gap-3 sm:grid-cols-3">
@@ -51,7 +51,7 @@
                                     <div class="truncate font-medium text-zinc-800 dark:text-white">
                                         {{ $usuario->name }}
                                         @if ($usuario->is(auth()->user()))
-                                            <flux:badge size="sm" color="indigo" class="ms-1">Você</flux:badge>
+                                            <flux:badge size="sm" color="zinc" class="ms-1">Você</flux:badge>
                                         @endif
                                     </div>
                                     <flux:text size="sm" class="truncate">{{ $usuario->email }}</flux:text>
@@ -83,11 +83,11 @@
                                 </flux:button>
                                 @unless ($usuario->is(auth()->user()))
                                     @if ($usuario->ativo)
-                                        <flux:button size="sm" variant="ghost" color="red" icon="no-symbol" wire:click="confirmarAtivacao({{ $usuario->id }})">
+                                        <flux:button size="sm" variant="ghost" icon="no-symbol" wire:click="confirmarAtivacao({{ $usuario->id }})">
                                             Desativar
                                         </flux:button>
                                     @else
-                                        <flux:button size="sm" variant="ghost" color="emerald" icon="arrow-path" wire:click="confirmarAtivacao({{ $usuario->id }})">
+                                        <flux:button size="sm" variant="ghost" icon="arrow-path" wire:click="confirmarAtivacao({{ $usuario->id }})">
                                             Ativar
                                         </flux:button>
                                     @endif

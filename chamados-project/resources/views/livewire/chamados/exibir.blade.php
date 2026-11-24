@@ -11,7 +11,7 @@
         </flux:link>
 
         <div class="mt-2 flex flex-wrap items-center gap-2">
-            <span class="font-mono text-sm font-semibold text-indigo-600 dark:text-indigo-300">{{ $chamado->numero() }}</span>
+            <span class="font-mono text-sm text-zinc-500 dark:text-zinc-400">{{ $chamado->numero() }}</span>
             <x-chamado.status :status="$chamado->status" />
             <x-chamado.prioridade :prioridade="$chamado->prioridade" />
         </div>
@@ -28,7 +28,7 @@
             <flux:callout.text>Confira a solução na linha do tempo e diga se o problema foi resolvido: aceite para fechar o chamado ou recuse para que o atendimento continue.</flux:callout.text>
         </flux:callout>
     @elseif ($chamado->status === \App\Enums\StatusChamado::Solucionado)
-        <flux:callout icon="clock" color="sky">
+        <flux:callout icon="clock">
             <flux:callout.heading>Aguardando {{ $chamado->requerente->name }} avaliar a solução.</flux:callout.heading>
             <flux:callout.text>Somente quem abriu o chamado pode aceitar a solução. Se precisar, você pode retomar o atendimento.</flux:callout.text>
         </flux:callout>
@@ -70,8 +70,8 @@
                     @foreach ($this->linhaDoTempo as $item)
                         @if ($item instanceof \App\Models\HistoricoChamado)
                             <li class="relative" wire:key="h-{{ $item->id }}">
-                                <span class="absolute -start-[33px] flex size-5 items-center justify-center rounded-full bg-indigo-100 ring-4 ring-zinc-50 dark:bg-indigo-500/20 dark:ring-zinc-800">
-                                    <flux:icon :name="$item->evento->icone()" variant="micro" class="text-indigo-600 dark:text-indigo-300" />
+                                <span class="absolute -start-[33px] flex size-5 items-center justify-center rounded-full bg-zinc-200 ring-4 ring-zinc-50 dark:bg-zinc-700 dark:ring-zinc-800">
+                                    <flux:icon :name="$item->evento->icone()" variant="micro" class="text-zinc-500 dark:text-zinc-300" />
                                 </span>
                                 <flux:text size="sm">
                                     <span class="font-medium text-zinc-700 dark:text-zinc-300">{{ $item->usuario->name ?? 'Sistema' }}</span>
@@ -112,7 +112,7 @@
                             @else
                                 <span></span>
                             @endif
-                            <flux:button type="submit" variant="primary" icon="chat-bubble-left-ellipsis">Enviar</flux:button>
+                            <flux:button type="submit" icon="chat-bubble-left-ellipsis">Enviar</flux:button>
                         </div>
                     </form>
                 @else
@@ -149,9 +149,9 @@
                         @endif
                     </flux:select>
                     <div class="flex gap-2">
-                        <flux:button size="sm" variant="filled" color="indigo" icon="check" wire:click="atribuir" class="flex-1">Salvar</flux:button>
+                        <flux:button size="sm" icon="check" wire:click="atribuir" class="flex-1">Salvar</flux:button>
                         @if ($chamado->responsavel_id !== $usuario->id)
-                            <flux:button size="sm" variant="primary" icon="hand-raised" wire:click="assumir" class="flex-1">Assumir</flux:button>
+                            <flux:button size="sm" icon="hand-raised" wire:click="assumir" class="flex-1">Assumir</flux:button>
                         @endif
                     </div>
                 </flux:card>

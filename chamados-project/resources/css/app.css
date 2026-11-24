@@ -12,22 +12,22 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
     /*
-     * Identidade do Prisma: índigo como cor de ação (botões primários, links,
-     * foco e item ativo do menu). Os demais tons (status, prioridade, perfis)
-     * vêm das cores semânticas dos badges.
+     * Paleta do Prisma (regra 60-30-10):
+     * - base neutra (zinc) para fundos, cartões e bordas;
+     * - um único acento, azul, reservado à ação principal de cada tela,
+     *   links, foco e item ativo do menu;
+     * - cores extras só onde carregam significado: badges de status,
+     *   prioridade, perfil e situação.
      */
-    --color-accent: var(--color-indigo-600);
-    --color-accent-content: var(--color-indigo-600);
+    --color-accent: var(--color-blue-600);
+    --color-accent-content: var(--color-blue-600);
     --color-accent-foreground: var(--color-white);
-
-    --color-marca-inicio: #6366f1;
-    --color-marca-fim: #7c3aed;
 }
 
 @layer theme {
     .dark {
-        --color-accent: var(--color-indigo-500);
-        --color-accent-content: var(--color-indigo-300);
+        --color-accent: var(--color-blue-500);
+        --color-accent-content: var(--color-blue-400);
         --color-accent-foreground: var(--color-white);
     }
 }

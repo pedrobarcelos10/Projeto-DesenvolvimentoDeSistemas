@@ -19,10 +19,10 @@
 
             @forelse ($campos as $indice => $campo)
                 @php $temOpcoes = \App\Enums\TipoCampo::tryFrom($campo['tipo'])?->possuiOpcoes() ?? false; @endphp
-                <flux:card wire:key="campo-{{ $campo['uid'] }}" class="flex flex-col gap-4 border-s-4 border-s-indigo-500!">
+                <flux:card wire:key="campo-{{ $campo['uid'] }}" class="flex flex-col gap-4">
                     <div class="flex items-center justify-between gap-2">
                         <div class="flex items-center gap-2">
-                            <span class="flex size-7 items-center justify-center rounded-full bg-indigo-100 text-xs font-semibold text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-200">{{ $indice + 1 }}</span>
+                            <span class="flex size-7 items-center justify-center rounded-full bg-zinc-100 text-xs font-semibold text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">{{ $indice + 1 }}</span>
                             @if ($campo['chave'])
                                 <flux:badge size="sm" color="zinc" class="font-mono">{{ $campo['chave'] }}</flux:badge>
                             @endif
@@ -57,14 +57,14 @@
             @endforelse
 
             <div>
-                <flux:button variant="filled" color="indigo" icon="plus" wire:click="adicionarCampo">Adicionar campo</flux:button>
+                <flux:button icon="plus" wire:click="adicionarCampo">Adicionar campo</flux:button>
             </div>
         </div>
 
         <div class="flex flex-col gap-6">
             <flux:card class="flex flex-col gap-5 xl:sticky xl:top-6">
                 <div class="flex items-center gap-3">
-                    <x-icone-secao icone="document-text" cor="indigo" />
+                    <x-icone-secao icone="document-text" />
                     <flux:heading size="lg">Dados gerais</flux:heading>
                 </div>
 

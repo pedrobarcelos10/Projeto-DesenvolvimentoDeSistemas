@@ -13,7 +13,7 @@
                 <flux:card wire:key="form-{{ $formulario->id }}" @class(['flex flex-col gap-4', 'opacity-60' => ! $formulario->ativo])>
                     <div class="flex items-start justify-between gap-3">
                         <div class="flex items-start gap-3">
-                            <x-icone-secao icone="document-text" :cor="$formulario->tipo_chamado === \App\Enums\TipoChamado::Incidente ? 'rose' : 'indigo'" />
+                            <x-icone-secao icone="document-text" />
                             <div class="min-w-0">
                                 <flux:heading class="truncate">{{ $formulario->nome }}</flux:heading>
                                 <flux:text size="sm" class="truncate">{{ $formulario->categoria->area->sigla ?? $formulario->categoria->area->nome }} · {{ $formulario->categoria->nomeCompleto() }}</flux:text>
@@ -40,7 +40,7 @@
                     @endif
 
                     <div class="mt-auto flex flex-wrap items-center gap-1.5">
-                        <flux:badge size="sm" :color="$formulario->tipo_chamado === \App\Enums\TipoChamado::Incidente ? 'rose' : 'indigo'">{{ $formulario->tipo_chamado->rotulo() }}</flux:badge>
+                        <flux:badge size="sm" :color="$formulario->tipo_chamado->cor()">{{ $formulario->tipo_chamado->rotulo() }}</flux:badge>
                         <x-chamado.prioridade :prioridade="$formulario->prioridade_padrao" />
                         <flux:badge size="sm" color="zinc" icon="list-bullet">{{ trans_choice('{0} Sem campos|{1} 1 campo|[2,*] :count campos', $formulario->campos_count) }}</flux:badge>
                         @unless ($formulario->ativo)
@@ -50,7 +50,7 @@
 
                     <div class="flex items-center justify-between border-t border-zinc-100 pt-3 dark:border-zinc-800">
                         <flux:text size="sm">{{ trans_choice('{0} Nenhum chamado|{1} 1 chamado aberto|[2,*] :count chamados abertos', $formulario->chamados_count) }}</flux:text>
-                        <flux:button size="sm" variant="filled" color="indigo" icon="pencil-square" :href="route('admin.formularios.editar', $formulario)" wire:navigate>Editar</flux:button>
+                        <flux:button size="sm" icon="pencil-square" :href="route('admin.formularios.editar', $formulario)" wire:navigate>Editar</flux:button>
                     </div>
                 </flux:card>
             @endforeach

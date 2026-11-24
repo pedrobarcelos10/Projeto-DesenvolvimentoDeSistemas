@@ -14,7 +14,7 @@
             <flux:card wire:key="area-{{ $area->id }}" @class(['flex flex-col gap-4', 'opacity-60' => ! $area->ativo])>
                 <div class="flex items-start justify-between gap-3">
                     <div class="flex items-start gap-3">
-                        <x-icone-secao icone="building-office-2" :cor="$area->recebe_chamados ? 'indigo' : 'teal'" />
+                        <x-icone-secao icone="building-office-2" :cor="$area->recebe_chamados ? 'blue' : 'zinc'" />
                         <div>
                             <div class="flex flex-wrap items-center gap-2">
                                 <flux:heading size="lg">{{ $area->nome }}</flux:heading>
@@ -24,9 +24,9 @@
                             </div>
                             <div class="mt-1 flex flex-wrap gap-1.5">
                                 @if ($area->recebe_chamados)
-                                    <flux:badge size="sm" color="indigo" icon="inbox-arrow-down">Recebe chamados</flux:badge>
+                                    <flux:badge size="sm" color="blue" icon="inbox-arrow-down">Recebe chamados</flux:badge>
                                 @else
-                                    <flux:badge size="sm" color="teal" icon="paper-airplane">Apenas solicita</flux:badge>
+                                    <flux:badge size="sm" color="zinc" icon="paper-airplane">Apenas solicita</flux:badge>
                                 @endif
                                 @unless ($area->ativo)
                                     <flux:badge size="sm" color="zinc" icon="no-symbol">Inativa</flux:badge>
@@ -86,7 +86,7 @@
                 </div>
 
                 <div>
-                    <flux:button size="sm" variant="filled" color="indigo" icon="plus" wire:click="novaSecao({{ $area->id }})">Adicionar seção</flux:button>
+                    <flux:button size="sm" variant="ghost" icon="plus" wire:click="novaSecao({{ $area->id }})">Adicionar seção</flux:button>
                 </div>
             </flux:card>
         @endforeach

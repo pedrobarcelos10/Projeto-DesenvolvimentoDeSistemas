@@ -12,7 +12,7 @@
         <div class="flex flex-col gap-6 xl:col-span-2">
             <flux:card class="flex flex-col gap-5">
                 <div class="flex items-center gap-3">
-                    <x-icone-secao icone="identification" cor="indigo" />
+                    <x-icone-secao icone="identification" />
                     <flux:heading size="lg">Dados pessoais</flux:heading>
                 </div>
                 <flux:input wire:model="name" label="Nome completo" required autocomplete="off" />
@@ -21,7 +21,7 @@
 
             <flux:card class="flex flex-col gap-5">
                 <div class="flex items-center gap-3">
-                    <x-icone-secao icone="key" cor="amber" />
+                    <x-icone-secao icone="key" />
                     <div>
                         <flux:heading size="lg">{{ $this->editando() ? 'Redefinir senha' : 'Senha inicial' }}</flux:heading>
                         <flux:text size="sm">
@@ -39,7 +39,7 @@
         <div class="flex flex-col gap-6">
             <flux:card class="flex flex-col gap-5">
                 <div class="flex items-center gap-3">
-                    <x-icone-secao icone="shield-check" cor="violet" />
+                    <x-icone-secao icone="shield-check" />
                     <flux:heading size="lg">Acesso</flux:heading>
                 </div>
 

@@ -10,16 +10,13 @@
                 <flux:sidebar.collapse class="lg:hidden" />
             </flux:sidebar.header>
 
-            <div class="px-1">
-                <flux:button variant="primary" icon="plus" :href="route('chamados.novo')" wire:navigate class="w-full">
-                    Abrir chamado
-                </flux:button>
-            </div>
-
             <flux:sidebar.nav>
                 <flux:sidebar.group heading="Chamados" class="grid">
                     <flux:sidebar.item icon="home" :href="route('painel')" :current="request()->routeIs('painel')" wire:navigate>
                         Painel
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="plus-circle" :href="route('chamados.novo')" :current="request()->routeIs('chamados.novo')" wire:navigate>
+                        Abrir chamado
                     </flux:sidebar.item>
                     <flux:sidebar.item icon="inbox-stack" :href="route('chamados.index')" :current="request()->routeIs('chamados.index', 'chamados.exibir') && request('escopo') !== 'fila'" wire:navigate>
                         Chamados
@@ -51,7 +48,7 @@
 
             <flux:spacer />
 
-            <div class="mx-1 flex flex-col gap-1.5 rounded-lg bg-indigo-50 px-3 py-2.5 dark:bg-indigo-500/10">
+            <div class="mx-1 flex flex-col gap-1.5 rounded-lg border border-zinc-200 px-3 py-2.5 dark:border-zinc-700">
                 <flux:badge size="sm" :color="auth()->user()->perfil->cor()" :icon="auth()->user()->perfil->icone()" class="self-start">
                     {{ auth()->user()->perfil->rotulo() }}
                 </flux:badge>
@@ -74,7 +71,6 @@
             <flux:dropdown position="top" align="end">
                 <flux:profile
                     :initials="auth()->user()->initials()"
-                    avatar:color="indigo"
                     icon-trailing="chevron-down"
                 />
 
@@ -85,7 +81,6 @@
                                 <flux:avatar
                                     :name="auth()->user()->name"
                                     :initials="auth()->user()->initials()"
-                                    color="indigo"
                                 />
 
                                 <div class="grid flex-1 text-start text-sm leading-tight">

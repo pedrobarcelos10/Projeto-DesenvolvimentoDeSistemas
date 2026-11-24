@@ -36,7 +36,7 @@
                                 @if ($sub)
                                     <flux:icon.arrow-turn-down-right variant="micro" class="text-zinc-400" />
                                 @else
-                                    <flux:icon.folder variant="mini" class="text-indigo-500" />
+                                    <flux:icon.folder variant="mini" class="text-zinc-400" />
                                 @endif
                                 <div class="min-w-0">
                                     <div @class(['truncate text-zinc-800 dark:text-white', 'font-semibold' => ! $sub, 'font-medium' => $sub])>{{ $categoria->nome }}</div>

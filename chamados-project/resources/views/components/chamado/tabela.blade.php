@@ -28,9 +28,9 @@
         <flux:table.rows>
             @foreach ($chamados as $chamado)
                 <flux:table.row :key="$chamado->id">
-                    <flux:table.cell class="font-mono text-xs font-medium text-indigo-600 dark:text-indigo-300">{{ $chamado->numero() }}</flux:table.cell>
+                    <flux:table.cell class="font-mono text-xs text-zinc-500 dark:text-zinc-400">{{ $chamado->numero() }}</flux:table.cell>
                     <flux:table.cell class="max-w-sm">
-                        <flux:link :href="route('chamados.exibir', $chamado)" wire:navigate variant="ghost" class="block truncate font-medium hover:text-indigo-600! dark:hover:text-indigo-300!">
+                        <flux:link :href="route('chamados.exibir', $chamado)" wire:navigate variant="ghost" class="block truncate font-medium">
                             {{ $chamado->titulo }}
                         </flux:link>
                         @if ($chamado->categoria)

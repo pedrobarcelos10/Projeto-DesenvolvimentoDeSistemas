@@ -1,18 +1,20 @@
-{{-- Ícone em quadrado colorido para títulos de cartões. Uso: <x-icone-secao icone="key" cor="amber" /> --}}
-@props(['icone', 'cor' => 'indigo'])
+{{--
+    Ícone em quadrado neutro para títulos de cartões; a cor fica só no traço do ícone.
+    Uso: <x-icone-secao icone="key" cor="amber" />
+--}}
+@props(['icone', 'cor' => 'zinc'])
 
 @php
     $tons = [
-        'indigo' => 'bg-indigo-100 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-300',
-        'violet' => 'bg-violet-100 text-violet-600 dark:bg-violet-500/15 dark:text-violet-300',
-        'sky' => 'bg-sky-100 text-sky-600 dark:bg-sky-500/15 dark:text-sky-300',
-        'emerald' => 'bg-emerald-100 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-300',
-        'amber' => 'bg-amber-100 text-amber-600 dark:bg-amber-500/15 dark:text-amber-300',
-        'rose' => 'bg-rose-100 text-rose-600 dark:bg-rose-500/15 dark:text-rose-300',
-        'teal' => 'bg-teal-100 text-teal-600 dark:bg-teal-500/15 dark:text-teal-300',
+        'zinc' => 'text-zinc-500 dark:text-zinc-400',
+        'blue' => 'text-blue-600 dark:text-blue-400',
+        'sky' => 'text-sky-600 dark:text-sky-400',
+        'emerald' => 'text-emerald-600 dark:text-emerald-400',
+        'amber' => 'text-amber-600 dark:text-amber-400',
+        'rose' => 'text-rose-600 dark:text-rose-400',
     ];
 @endphp
 
-<span {{ $attributes->class(['flex size-9 shrink-0 items-center justify-center rounded-lg', $tons[$cor] ?? $tons['indigo']]) }}>
+<span {{ $attributes->class(['flex size-9 shrink-0 items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-800', $tons[$cor] ?? $tons['zinc']]) }}>
     <flux:icon :name="$icone" variant="mini" />
 </span>

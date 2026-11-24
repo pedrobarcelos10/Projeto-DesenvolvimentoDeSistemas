@@ -28,9 +28,9 @@ enum PerfilUsuario: string
     public function cor(): string
     {
         return match ($this) {
-            self::Administrador => 'violet',
+            self::Administrador => 'amber',
             self::Atendente => 'sky',
-            self::Requerente => 'teal',
+            self::Requerente => 'zinc',
         };
     }
 

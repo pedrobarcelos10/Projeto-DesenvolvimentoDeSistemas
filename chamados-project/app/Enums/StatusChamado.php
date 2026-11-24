@@ -31,7 +31,7 @@ enum StatusChamado: string
             self::EmAtendimento => 'amber',
             self::Pendente => 'orange',
             self::Solucionado => 'emerald',
-            self::Fechado => 'indigo',
+            self::Fechado => 'zinc',
             self::Cancelado => 'red',
         };
     }

@@ -13,9 +13,9 @@
             <div class="grid gap-3 sm:grid-cols-2">
                 @foreach ($this->formularios as $item)
                     <a href="{{ route('chamados.novo', ['formulario' => $item->id]) }}" wire:navigate
-                       class="group rounded-xl border border-zinc-200 bg-white p-4 shadow-xs transition hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-indigo-500/60">
+                       class="group rounded-xl border border-zinc-200 bg-white p-4 transition-colors hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/60">
                         <div class="flex items-start gap-3">
-                            <x-icone-secao icone="document-text" cor="indigo" />
+                            <x-icone-secao icone="document-text" cor="blue" />
                             <div>
                                 <flux:heading>{{ $item->nome }}</flux:heading>
                                 @if ($item->descricao)
